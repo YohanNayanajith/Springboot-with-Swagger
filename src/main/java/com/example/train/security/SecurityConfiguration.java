@@ -71,6 +71,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
+
 //    @Bean
 //    @Override
 //    public UserDetailsService userDetailsService() {

@@ -18,4 +18,5 @@ public class AppUser {
     private String email;
     private String contactNumber;
     private Boolean isActivate = true;
+
 }

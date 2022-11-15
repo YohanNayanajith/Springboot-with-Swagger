@@ -3,6 +3,8 @@ package com.example.train.filter;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 
+import com.example.train.model.AppUser;
+import com.example.train.service.AppUserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +24,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -58,6 +59,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException, ServletException {
 //        super.successfulAuthentication(request, response, chain, authentication);
 //        UserService userServiceNew = new UserService();
+//        final AppUserService appUserService = null;
         User user = (User)authentication.getPrincipal();
 //        log.info(String.valueOf(user));
         Algorithm algorithm = Algorithm.HMAC256("secret".getBytes());
@@ -76,13 +78,16 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 
 //        response.setHeader("access_token",access_token);
 //        response.setHeader("refresh_token",access_token);
+//        AppUser appUserByUsername = appUserService.getAppUserByUsername(user.getUsername());
         Map<String, String> tokens = new HashMap<>();
         tokens.put("access_token",access_token);
         tokens.put("refresh_token",refresh_token);
+        tokens.put("username",user.getUsername());
 //        tokens.put("CurrentUser",id);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         new ObjectMapper().writeValue(response.getOutputStream(),tokens);
     }
+
 }
 
 @Data
