@@ -53,7 +53,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //        super.configure(http);
 //        http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(STATELESS);
-        http.authorizeRequests().antMatchers("/api/login/**","/api/token/refresh/**","/api/swagger-ui/**","/swagger-ui/**","/v2/api-docs").permitAll();
+        http.authorizeRequests().antMatchers("/api/login/**","/api/token/refresh/**","/api/swagger-ui/**","/swagger-ui/**","/v2/api-docs","/api/user/").permitAll();
 //        http.authorizeRequests().antMatchers("/api/user/**").permitAll();
 //        http.authorizeRequests().antMatchers(GET,"/api/user/**").hasAnyAuthority("ROLE_USER");
 //        http.authorizeRequests().antMatchers(POST,"/api/user/save/**").hasAnyAuthority("ROLE_ADMIN");

@@ -9,6 +9,9 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 //@SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
 @SpringBootApplication
@@ -16,6 +19,20 @@ public class TrainApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(TrainApplication.class, args);
+    }
+
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurerAdapter() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/api/login").allowedOrigins("http://localhost:8080");
+                registry.addMapping("/api/user/**").allowedOrigins("http://localhost:8080");
+                registry.addMapping("/api/swagger-ui/**").allowedOrigins("http://localhost:8080");
+                registry.addMapping("/swagger-ui/**").allowedOrigins("http://localhost:8080");
+                registry.addMapping("/v2/api-docs").allowedOrigins("http://localhost:8080");
+            }
+        };
     }
 
     @Bean
